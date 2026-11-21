@@ -1,0 +1,728 @@
+/* ==========================================
+   1. БАЗОВІ СТИЛІ ТА СКИДАННЯ (RESET)
+   ========================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   2. НАПІВПРОЗОРЕ МЕНЮ ТА КНОПКИ КЕРУВАННЯ
+   ========================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(18, 18, 18, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  padding: 15px 0;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  height: 45px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Гамбургер мобільного меню сайту */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* Кнопка-гамбургер акаунту у правому куточку */
+.account-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1002;
+}
+
+.account-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2.5px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.account-hamburger:hover {
+  background: rgba(255, 71, 87, 0.35);
+  border-color: #ff4757;
+}
+
+.account-hamburger.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.account-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.account-hamburger.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ==========================================
+   3. ВИЇЗНА ПАНЕЛЬКА ПРОФІЛЮ ТА МОДАЛКА
+   ========================================== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1100;
+}
+
+.sidebar-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.account-sidebar {
+  position: fixed;
+  top: 0;
+  right: -360px;
+  width: 320px;
+  max-width: 85vw;
+  height: 100vh;
+  background: rgba(22, 22, 26, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+  z-index: 1200;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.account-sidebar.open {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 18px;
+}
+
+.sidebar-header h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-header h3 i {
+  color: #ff4757;
+}
+
+.close-sidebar-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-sidebar-btn:hover {
+  background: #ff4757;
+  border-color: #ff4757;
+}
+
+.account-card-box {
+  background: linear-gradient(145deg, rgba(255, 71, 87, 0.12), rgba(30, 30, 36, 0.8));
+  border: 1px solid rgba(255, 71, 87, 0.25);
+  border-radius: 18px;
+  padding: 18px 15px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.account-avatar {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.35);
+}
+
+.account-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffb6c1;
+  margin-bottom: 6px;
+}
+
+.account-badge.admin-role {
+  background: rgba(46, 213, 115, 0.18);
+  color: #2ed573;
+}
+
+.account-username {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  word-break: break-word;
+  margin-bottom: 3px;
+}
+
+.account-email {
+  font-size: 0.82rem;
+  color: #a4b0be;
+  word-break: break-all;
+}
+
+.account-stats {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 12px 15px;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: #d1d8e0;
+}
+
+.stat-row strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sidebar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.sidebar-action-btn {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.primary-action {
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.primary-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.45);
+}
+
+.secondary-action {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.secondary-action:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.logout-btn {
+  background: rgba(255, 71, 87, 0.12);
+  color: #ff6b81;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.logout-btn:hover {
+  background: #ff4757;
+  color: #ffffff;
+}
+
+/* Стилі для модального вікна інформації про акаунт */
+.info-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1300;
+  padding: 20px;
+}
+
+.info-modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.info-modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: #1a1a1f;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.info-modal-overlay.show .info-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: #a4b0be;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  color: #ff4757;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-info-group label {
+  font-size: 0.8rem;
+  color: #a4b0be;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.modal-info-group p {
+  font-size: 1.05rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  word-break: break-all;
+}
+
+/* Стандартні стилі навігації */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff4757;
+}
+
+.currency-nav-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+  font-weight: 600;
+  gap: 6px;
+}
+
+.currency-add-plus {
+  background-color: #ff4757;
+  color: #ffffff !important;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.currency-add-plus:hover {
+  background-color: #ff6b81;
+  transform: scale(1.15);
+}
+
+/* ==========================================
+   4. РУТИННІ СЕКЦІЇ ТА HERO
+   ========================================== */
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 1000px !important;
+  width: 90% !important;
+  margin: 0 auto 30px auto !important;
+  color: #e0e0e0;
+  text-align: center;
+  white-space: normal;
+}
+
+.hero .btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #ff4757;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.hero .btn:hover {
+  background-color: #ff6b81;
+  transform: translateY(-3px);
+}
+
+.content-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 20px 60px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ff4757;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.info-card {
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.hero-about-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #18181b, #121214);
+  border: 1px solid rgba(255, 71, 87, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  padding: 30px;
+  width: 100%;
+}
+
+.about-lead {
+  font-size: 1.05rem;
+  color: #e0e0e0;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.highlight-name {
+  color: #ff4757;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.quote-box {
+  position: relative;
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: rgba(255, 71, 87, 0.06);
+  border-left: 4px solid #ff4757;
+  border-radius: 0 12px 12px 0;
+  width: 100%;
+}
+
+.quote-text {
+  font-style: italic;
+  color: #f1f2f6;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cards-grid .info-card h3 {
+  color: #ff4757;
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.info-card.nav-details-card {
+  text-align: center;
+}
+
+.nav-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.nav-btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background-color: #26262a;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.nav-btn-link:hover {
+  background-color: #ff4757;
+  border-color: #ff4757;
+  transform: translateY(-3px);
+}
+
+.footer {
+  background-color: #0d0d0d;
+  color: #888888;
+  text-align: center;
+  padding: 25px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
+}
+
+/* ==========================================
+   5. АДАПТИВНІСТЬ ДЛЯ ЕКРАНІВ (MOBILE)
+   ========================================== */
+@media (max-width: 960px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    gap: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(-150%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hero h1 { 
+    font-size: 2.2rem; 
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .content-section {
+    padding: 70px 15px 30px;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-buttons-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .nav-btn-link {
+    width: 100%;
+    max-width: 280px;
+  }
+}

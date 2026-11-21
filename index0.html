@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLTh7 - Головна</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style0.css">
+</head>
+<body>
+
+  <!-- Напівпрозоре меню зверху -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img src="https://cdn.discordapp.com/attachments/1549376815435485315/1549893053181853756/1789593681100.png?ex=6ad88423&is=6ad732a3&hm=b5c9f772e038e655b20c9e9e513273366d52791a9a86552cf5827d7c3845e306&" alt="SLTh7 Logo">
+      </a>
+
+      <!-- Основні посилання меню -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Головна</a></li>
+        <li><a href="#about">Про Діану</a></li>
+        <li><a href="#campagnano">Campagnano di Roma</a></li>
+        <li><a href="index1.html">Модельні відео</a></li>
+        <li><a href="index2.html">Галерея фото</a></li>
+        <li><a href="index3.html">Творчі едіти</a></li>
+        <li><a href="#rewards">Нагороди</a></li>
+        <li><a href="#details">Деталі</a></li>
+        <!-- Меню валюти в панельці -->
+        <li>
+          <div class="currency-nav-item">
+            <span class="currency-icon">🪙</span>
+            <span id="navAngorodCount">0</span>
+            <a href="#rewards" class="currency-add-plus" title="Додати ангороди">+</a>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Права панель керування (Мобільний гамбургер сайту + Гамбургер профілю) -->
+      <div class="nav-right-controls">
+        <button class="menu-toggle" id="menuToggle" aria-label="Відкрити мобільне меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <button class="account-hamburger" id="accountMenuToggle" title="Профіль акаунту" aria-label="Меню акаунту">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Затемнення фону -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Покращена виїзна панелька акаунту праворуч -->
+  <aside class="account-sidebar" id="accountSidebar">
+    <div class="sidebar-header">
+      <h3><i class="fas fa-user-circle"></i> Особистий кабінет</h3>
+      <button class="close-sidebar-btn" id="closeSidebarBtn">&times;</button>
+    </div>
+
+    <div class="account-card-box">
+      <div class="account-avatar" id="accountAvatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="account-badge" id="accountRoleBadge">Учасник</div>
+      <h4 class="account-username" id="sidebarUsername">Завантаження...</h4>
+      <p class="account-email" id="sidebarEmail">email@example.com</p>
+    </div>
+
+    <div class="account-stats">
+      <div class="stat-row">
+        <span><i class="fas fa-coins" style="color: #ffb6c1;"></i> Баланс ангород:</span>
+        <strong id="sidebarBalance">0 🪙</strong>
+      </div>
+      <div class="stat-row">
+        <span><i class="fas fa-ticket-alt" style="color: #2ed573;"></i> Активовано кодів:</span>
+        <strong id="sidebarCodesCount">0</strong>
+      </div>
+    </div>
+
+    <div class="sidebar-actions">
+      <button class="sidebar-action-btn primary-action" id="openAccountInfoModal">
+        <i class="fas fa-id-card"></i> Детальна інформація про акаунт
+      </button>
+      <a href="#rewards" class="sidebar-action-btn secondary-action" id="goToRewardsBtn">
+        <i class="fas fa-gift"></i> Мої нагороди та промокоди
+      </a>
+      <button class="sidebar-action-btn logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Вийти з акаунту
+      </button>
+    </div>
+  </aside>
+
+  <!-- Модальне вікно "Детальна інформація про акаунт" -->
+  <div class="info-modal-overlay" id="infoModalOverlay">
+    <div class="info-modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-shield-alt" style="color: #ff4757;"></i> Інформація про профіль</h3>
+        <button class="close-modal-btn" id="closeInfoModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-info-group">
+          <label>Нікнейм користувача:</label>
+          <p id="modalUserVal">—</p>
+        </div>
+        <div class="modal-info-group">
+          <label>Електронна пошта:</label>
+          <p id="modalEmailVal">—</p>
+        </div>
+        <div class="modal-info-group">
+          <label>Статус доступу:</label>
+          <p id="modalRoleVal">—</p>
+        </div>
+        <div class="modal-info-group">
+          <label>Статус підключення:</label>
+          <p style="color: #2ed573; font-weight: 600;"><i class="fas fa-check-circle"></i> Активна захищена сесія</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="nav-btn-link" id="closeModalFooterBtn" style="width: 100%;">Зрозуміло</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Головна секція на весь екран (Hero) -->
+  <header class="hero" id="hero">
+    <h1>Ласкаво просимо, Діано! ✨</h1>
+    <p>
+      Сайт про одну особливу дівчину з Богородчан, яка живе в місті «Campagnano di Roma.»<br>
+      Campagnano di Roma — атмосферне італійське містечко, де народжуються особливі спогади.
+    </p>
+    <a href="#about" class="btn">Почати огляд</a>
+  </header>
+
+  <!-- 2. Про Діану -->
+  <section class="content-section" id="about">
+    <h2 class="section-title">Про головну героїню</h2>
+    <div class="info-card hero-about-card">
+      <p class="about-lead">
+        Тут зібрана історія про головну героїню <span class="highlight-name">Діану</span>, яка тепер... скажімо так, влучно підкорює серця не поглядом, а своєю неповторною аурою та енергетикою, яка зачіпає з першої ж хвилини... Ця <span class="highlight-name">Хижачка</span> занадто особлива, щоб бути звичайною.
+      </p>
+
+      <div class="quote-box">
+        <p class="quote-text">
+          «Вона непередбачувана й імпульсивна, але неймовірно рідна. <br>
+          Всі її емоції — справжні. І навіть коли вона біситься чи показує характер, у цьому стільки життя... У такі хвилини вона виглядає нереально особливою, а її дрібні мінуси роблять її тільки милішою.»
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Секція: Campagnano di Roma з натяками -->
+  <section class="content-section" id="campagnano">
+    <h2 class="section-title">Campagnano di Roma & Його Магія</h2>
+    <div class="cards-grid">
+
+      <div class="info-card">
+        <h3>🏛 Місце, де зупиняється час</h3>
+        <p>Campagnano di Roma зберігає старовинну естетику Лаціо. Серед цих вузьких затишних вуличок і сонячних фасадів легко відчути особливий магнетизм — той самий, що здатний непомітно захопити всю увагу й забрати спокій назавжди.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>✨ Тихий чар і невидима сила</h3>
+        <p>Це місто не потребує гучних слів, щоб закохати в себе. Воно підкорює м'яко, одним лише поглядом на сонячні дахи, залишаючи глибокий слід у душі — так само, як це вміє робити лише одна головна героїня цього вебпростору.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>☕ Вайб італійських вечорів</h3>
+        <p>Тихі вечори в Campagnano di Roma нагадують про те, як легко втратити контроль над власними думками, коли поруч є щось справді прекрасне, витончене та неповторне.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. Секція нагород, балансу та промокодів -->
+  <section class="content-section" id="rewards">
+    <h2 class="section-title">Ангороди та Промокоди</h2>
+
+    <div class="info-card rewards-hub" style="margin-bottom: 30px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%;">
+        <div>
+          <p style="color: #a4b0be; font-size: 0.95rem;">Твій баланс (<span id="rewardsOwnerLabel" style="color: #ff4757; font-weight: 600;"></span>):</p>
+          <h3 style="font-size: 2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+            <span>🪙</span> <span id="sectionAngorodCount">0</span> ангород
+          </h3>
+          <!-- Кнопка скидання спроб -->
+          <button id="resetProgressBtn" style="background: transparent; border: none; color: #ff4757; font-size: 0.85rem; cursor: pointer; margin-top: 6px; text-decoration: underline; padding: 0;">Скинути спроби та прогрес акаунту</button>
+        </div>
+        <div style="flex: 1; min-width: 260px; max-width: 400px;">
+          <p style="color: #a4b0be; font-size: 0.95rem; margin-bottom: 6px;">Введи секретний промокод:</p>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="promoInput" placeholder="Промокод..." style="flex: 1; padding: 10px 15px; background: #121212; border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; color: #fff; outline: none;">
+            <button id="applyPromoBtn" class="nav-btn-link" style="padding: 10px 20px; margin: 0;">Ввести</button>
+          </div>
+          <p id="promoMessage" style="font-size: 0.85rem; margin-top: 6px; min-height: 20px;"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="info-card reward-card" data-id="reward_mega" data-cost="1500">
+        <h3>👑 Легендарна нагорода</h3>
+        <p style="color: #e0e0e0; margin-bottom: 20px;">Головний приз за найбільшу кількість накопичених ангород.</p>
+        <button class="nav-btn-link buy-reward-btn" style="width: 100%;">Отримати (1500 🪙)</button>
+      </div>
+
+      <div class="info-card reward-card" data-id="reward_mid" data-cost="500">
+        <h3>🎬 Особливий сюрприз</h3>
+        <p style="color: #e0e0e0; margin-bottom: 20px;">Квиток на отримання крутого персонального матеріалу.</p>
+        <button class="nav-btn-link buy-reward-btn" style="width: 100%;">Отримати (500 🪙)</button>
+      </div>
+
+      <div class="info-card reward-card" data-id="reward_mini" data-cost="200">
+        <h3>☕ Швидкий бонус</h3>
+        <p style="color: #e0e0e0; margin-bottom: 20px;">Приємний дріб'язковий бонус за базовий секретний промокод.</p>
+        <button class="nav-btn-link buy-reward-btn" style="width: 100%;">Отримати (200 🪙)</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. Детальна інформація / Навігація -->
+  <section class="content-section" id="details">
+    <h2 class="section-title">Деталі та навігація</h2>
+    <div class="info-card nav-details-card">
+      <p class="nav-details-text">Уся колекція кадрів та творчих робіт чекає на тебе в розділах:</p>
+
+      <div class="nav-buttons-container">
+        <a href="index1.html" class="nav-btn-link">Модельні відео</a>
+        <a href="index2.html" class="nav-btn-link main-btn">Галерея фото</a>
+        <a href="index3.html" class="nav-btn-link">Творчі едіти</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 SLTh7. Створено спеціально для тебе.</p>
+  </footer>
+
+  <!-- Синхронізація порту та балансу в реальному часі (SSE) -->
+  <script>
+    (async function () {
+      const username = localStorage.getItem('authUsername');
+      if (!username) return;
+
+      const defaultPort = 3000;
+      let serverBaseUrl =
+        window.location.protocol.startsWith('http')
+          ? window.location.origin
+          : `http://localhost:${defaultPort}`;
+
+      async function detectServerBaseUrl() {
+        const candidates = [serverBaseUrl, `http://localhost:${defaultPort}`];
+        const uniqueCandidates = [...new Set(candidates)];
+        for (const candidate of uniqueCandidates) {
+          try {
+            const resp = await fetch(`${candidate}/api/config`, { cache: 'no-store' });
+            if (resp.ok) {
+              const cfg = await resp.json();
+              if (cfg && cfg.port) {
+                return `http://localhost:${cfg.port}`;
+              }
+            }
+          } catch {}
+        }
+        return serverBaseUrl;
+      }
+
+      serverBaseUrl = await detectServerBaseUrl();
+      window.SYNC_SERVER_PORT = new URL(serverBaseUrl).port || String(defaultPort);
+      window.SYNC_SERVER_BASE_URL = serverBaseUrl;
+
+      const streamUrl = `${serverBaseUrl}/api/stream?username=${encodeURIComponent(username)}`;
+      const source = new EventSource(streamUrl);
+      let initialSyncDone = false;
+
+      source.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.username !== username) return;
+
+        if (typeof window.setAngorodsFromCloud === 'function') {
+          window.setAngorodsFromCloud(data.balance);
+        }
+
+        if (initialSyncDone && data.event && data.event.type === 'add') {
+          const promoMessage = document.getElementById('promoMessage');
+          if (promoMessage) {
+            promoMessage.style.color = '#2ed573';
+            promoMessage.textContent = `⚡ Бот нарахував +${data.event.amount} ангород!`;
+          }
+        }
+        initialSyncDone = true;
+      };
+
+      window.syncBalanceToCloud = (newVal) => {
+        fetch(`${window.SYNC_SERVER_BASE_URL || serverBaseUrl}/api/balance`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, balance: Number(newVal) || 0 })
+        }).catch(() => {});
+      };
+    })();
+  </script>
+
+  <script>
+    // Перевірка авторизації акаунту
+    const currentUsername = localStorage.getItem('authUsername');
+    const currentEmail = localStorage.getItem('authEmail');
+
+    if (!currentUsername || !currentEmail) {
+      window.location.href = 'signup.html';
+    }
+
+    const STORAGE_KEY_ANGORODS = `angorods_${currentUsername}`;
+    const STORAGE_KEY_CODES = `usedCodes_${currentUsername}`;
+    const STORAGE_KEY_REWARDS = `purchasedRewards_${currentUsername}`;
+
+    // Мобільне меню навігації сайту
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      closeAccountSidebar();
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Бокова панелька профілю
+    const accountMenuToggle = document.getElementById('accountMenuToggle');
+    const accountSidebar = document.getElementById('accountSidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const goToRewardsBtn = document.getElementById('goToRewardsBtn');
+
+    // Модальне вікно інформації про акаунт
+    const openAccountInfoModal = document.getElementById('openAccountInfoModal');
+    const infoModalOverlay = document.getElementById('infoModalOverlay');
+    const closeInfoModal = document.getElementById('closeInfoModal');
+    const closeModalFooterBtn = document.getElementById('closeModalFooterBtn');
+
+    const modalUserVal = document.getElementById('modalUserVal');
+    const modalEmailVal = document.getElementById('modalEmailVal');
+    const modalRoleVal = document.getElementById('modalRoleVal');
+
+    document.getElementById('sidebarUsername').textContent = currentUsername;
+    document.getElementById('sidebarEmail').textContent = currentEmail;
+    document.getElementById('rewardsOwnerLabel').textContent = currentUsername;
+
+    modalUserVal.textContent = currentUsername;
+    modalEmailVal.textContent = currentEmail;
+
+    const roleBadge = document.getElementById('accountRoleBadge');
+    const accountAvatar = document.getElementById('accountAvatar');
+    let roleText = 'Учасник';
+
+    if (currentUsername.toLowerCase().includes('admin')) {
+      roleText = 'Admin Access';
+      roleBadge.textContent = roleText;
+      roleBadge.classList.add('admin-role');
+      accountAvatar.innerHTML = '<i class="fas fa-user-shield"></i>';
+    } else if (currentUsername === 'Diana_Oleksynn') {
+      roleText = 'VIP Головна Героїня ✨';
+      roleBadge.textContent = roleText;
+      accountAvatar.innerHTML = '<i class="fas fa-crown"></i>';
+    } else {
+      roleBadge.textContent = roleText;
+    }
+    modalRoleVal.textContent = roleText;
+
+    function openAccountSidebar() {
+      accountSidebar.classList.add('open');
+      sidebarOverlay.classList.add('show');
+      accountMenuToggle.classList.add('active');
+      menuToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+    }
+
+    function closeAccountSidebar() {
+      accountSidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('show');
+      accountMenuToggle.classList.remove('active');
+    }
+
+    accountMenuToggle.addEventListener('click', () => {
+      if (accountSidebar.classList.contains('open')) {
+        closeAccountSidebar();
+      } else {
+        openAccountSidebar();
+      }
+    });
+
+    closeSidebarBtn.addEventListener('click', closeAccountSidebar);
+    sidebarOverlay.addEventListener('click', closeAccountSidebar);
+    goToRewardsBtn.addEventListener('click', closeAccountSidebar);
+
+    openAccountInfoModal.addEventListener('click', () => {
+      closeAccountSidebar();
+      infoModalOverlay.classList.add('show');
+    });
+
+    function closeInfoModalFunc() {
+      infoModalOverlay.classList.remove('show');
+    }
+
+    closeInfoModal.addEventListener('click', closeInfoModalFunc);
+    closeModalFooterBtn.addEventListener('click', closeInfoModalFunc);
+    infoModalOverlay.addEventListener('click', (e) => {
+      if (e.target === infoModalOverlay) closeInfoModalFunc();
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('authUsername');
+      localStorage.removeItem('authEmail');
+      window.location.href = 'signup.html';
+    });
+
+    // Логіка ангород та промокодів, прив'язана до акаунту
+    let angorods = parseInt(localStorage.getItem(STORAGE_KEY_ANGORODS)) || 0;
+    let usedCodes = JSON.parse(localStorage.getItem(STORAGE_KEY_CODES)) || [];
+    let purchasedRewards = JSON.parse(localStorage.getItem(STORAGE_KEY_REWARDS)) || [];
+
+    const navCountEl = document.getElementById('navAngorodCount');
+    const sectionCountEl = document.getElementById('sectionAngorodCount');
+    const sidebarBalanceEl = document.getElementById('sidebarBalance');
+    const sidebarCodesCountEl = document.getElementById('sidebarCodesCount');
+
+    const promoInput = document.getElementById('promoInput');
+    const applyPromoBtn = document.getElementById('applyPromoBtn');
+    const promoMessage = document.getElementById('promoMessage');
+    const resetProgressBtn = document.getElementById('resetProgressBtn');
+    const rewardCards = document.querySelectorAll('.reward-card');
+
+    function updateBalanceUI(syncCloud = false) {
+      navCountEl.textContent = angorods;
+      if (sectionCountEl) sectionCountEl.textContent = angorods;
+      if (sidebarBalanceEl) sidebarBalanceEl.textContent = `${angorods} 🪙`;
+      if (sidebarCodesCountEl) sidebarCodesCountEl.textContent = usedCodes.length;
+
+      localStorage.setItem(STORAGE_KEY_ANGORODS, angorods);
+      if (syncCloud && typeof window.syncBalanceToCloud === 'function') {
+        window.syncBalanceToCloud(angorods);
+      }
+      updateRewardsState();
+    }
+
+    window.setAngorodsFromCloud = (remoteBalance) => {
+      angorods = Number(remoteBalance) || 0;
+      updateBalanceUI(false);
+    };
+
+    function updateRewardsState() {
+      rewardCards.forEach(card => {
+        const id = card.dataset.id;
+        const cost = parseInt(card.dataset.cost);
+        const btn = card.querySelector('.buy-reward-btn');
+
+        if (purchasedRewards.includes(id)) {
+          btn.textContent = '✓ Отримано';
+          btn.style.backgroundColor = '#2ed573';
+          btn.style.borderColor = '#2ed573';
+          btn.disabled = true;
+        } else {
+          btn.textContent = `Отримати (${cost} 🪙)`;
+          btn.style.backgroundColor = '';
+          btn.style.borderColor = '';
+          btn.disabled = false;
+          btn.style.opacity = angorods < cost ? '0.6' : '1';
+        }
+      });
+    }
+
+    const secretCodes = {
+      "DIANA2026": 15000,
+      "MYLOVE": 5000000,
+      "CAMPAGNANO": 2000
+    };
+
+    applyPromoBtn.addEventListener('click', () => {
+      const code = promoInput.value.trim().toUpperCase();
+      if (!code) return;
+
+      if (secretCodes[code] !== undefined) {
+        if (usedCodes.includes(code)) {
+          promoMessage.style.color = '#ff4757';
+          promoMessage.textContent = `Акаунт ${currentUsername} вже використав цей код!`;
+          return;
+        }
+
+        const reward = secretCodes[code];
+        angorods += reward;
+        usedCodes.push(code);
+        localStorage.setItem(STORAGE_KEY_CODES, JSON.stringify(usedCodes));
+
+        promoInput.value = '';
+        promoMessage.style.color = '#2ed573';
+        promoMessage.textContent = `Успішно! Нараховано +${reward} ангород! 🎉`;
+        updateBalanceUI(true);
+      } else {
+        promoMessage.style.color = '#ff4757';
+        promoMessage.textContent = "Невірний секретний промокод!";
+      }
+    });
+
+    rewardCards.forEach(card => {
+      const btn = card.querySelector('.buy-reward-btn');
+      btn.addEventListener('click', () => {
+        const id = card.dataset.id;
+        const cost = parseInt(card.dataset.cost);
+
+        if (purchasedRewards.includes(id)) return;
+
+        if (angorods >= cost) {
+          angorods -= cost;
+          purchasedRewards.push(id);
+          localStorage.setItem(STORAGE_KEY_REWARDS, JSON.stringify(purchasedRewards));
+          updateBalanceUI(true);
+          promoMessage.style.color = '#2ed573';
+          promoMessage.textContent = 'Нагороду успішно активовано!';
+        } else {
+          promoMessage.style.color = '#ff4757';
+          promoMessage.textContent = `Недостатньо ангород (потрібно ${cost} 🪙).`;
+        }
+      });
+    });
+
+    resetProgressBtn.addEventListener('click', () => {
+      if (confirm(`Скинути весь прогрес та баланс для акаунту ${currentUsername}?`)) {
+        localStorage.removeItem(STORAGE_KEY_ANGORODS);
+        localStorage.removeItem(STORAGE_KEY_CODES);
+        localStorage.removeItem(STORAGE_KEY_REWARDS);
+
+        angorods = 0;
+        usedCodes = [];
+        purchasedRewards = [];
+
+        promoInput.value = '';
+        promoMessage.style.color = '#ff4757';
+        promoMessage.textContent = "Прогрес успішно скинуто!";
+        updateBalanceUI(true);
+      }
+    });
+
+    updateBalanceUI(false);
+  </script>
+  <script src="adapt.js" defer></script>
+</body>
+</html>
